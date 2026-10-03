@@ -1,35 +1,9 @@
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf(8823289593:AAFNeNrIJmDN1v9Z5kWIUtyohxgMbTnEpoc);
+const bot = new Telegraf(process.env.8823289593:AAFFeuoF0jTpL2CplY-RmOevow1d35DB0LA);
 
-bot.start((ctx) => ctx.reply('🚀 LAWAL AI BOT READY!\nUse /signal for trade\nLot: 0.01 fixed\nRisk: 2% max'));
+bot.start((ctx) => ctx.reply('Welcome! Bot is online ✅'));
+bot.on('text', (ctx) => ctx.reply(`You said: ${ctx.message.text}`));
 
-bot.command('signal', (ctx) => {
-  const pairs = ['EUR/USD','GBP/USD','GOLD','BTC/USD','USD/JPY'];
-  const pair = pairs[Math.floor(Math.random()*5)];
-  const side = Math.random()>0.5?'BUY 🟢':'SELL 🔴';
-  const conf = Math.floor(Math.random()*22)+72;
-  ctx.reply(
-`🤖 LAWAL AI SIGNAL: ${pair}
-📊 Action: ${side}
-💯 Confidence: ${conf}%
-💰 Lot Size: 0.01 (fixed)
-🛡️ Risk: 2% max
-📍 SL: 1.5% | TP: 3%
-⚠️ Not financial advice`
-  );
-});
-
-bot.command('risk', (ctx) => {
-  ctx.reply(
-`🛡️ RISK MANAGEMENT
-• Lot: 0.01 per $100 - FIXED
-• $100 = 0.01 lot
-• $500 = 0.05 lot
-• $1000 = 0.10 lot
-• Never risk >2% per trade
-• Always use SL!`
-  );
-});
-
-bot.launch();
-console.log('Bot running 0.01 lot');
+bot.launch().then(() => console.log('Bot started'));
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
