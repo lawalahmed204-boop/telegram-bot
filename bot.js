@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf('PASTE_YOUR_TOKEN_HERE');
+const bot = new Telegraf(8823289593:AAFNeNrIJmDN1v9Z5kWIUtyohxgMbTnEpoc);
 
 bot.start((ctx) => ctx.reply('🚀 LAWAL AI BOT READY!\nUse /signal for trade\nLot: 0.01 fixed\nRisk: 2% max'));
 
