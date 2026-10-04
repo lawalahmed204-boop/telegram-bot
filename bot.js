@@ -1,9 +1,12 @@
- require('http').createServer((_,res)=>res.end('Bot is alive')).listen(process.env.PORT||10000);const { Telegraf } = require('telegraf');
-const bot = new Telegraf(process.env.BOT_TOKEN);
-
-bot.start((ctx) => ctx.reply('Welcome! Bot is online ✅'));
-bot.on('text', (ctx) => ctx.reply(`You said: ${ctx.message.text}`));
-
-bot.launch().then(() => console.log('Bot started'));
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+require('http').createServer((_,res)=>{res.writeHead(200,{'Content-Type':'text/html'});res.end('Bot is alive')}).listen(process.env.PORT||10000);
+const { Telegraf } = require('telegraf')
+const bot = new Telegraf(process.env.BOT_TOKEN)
+bot.start((ctx) => ctx.reply(`🤖 Welcome to Ai Forex EA Assistant!\n\n💹 Professional Forex Partner\n\n📋 COMMANDS:\n/start - Welcome\n/help - How to use\n/signals - Free signals\n/ea - About EA Robot\n/vip - VIP Access`))
+bot.help((ctx) => ctx.reply(`📊 HELP\n\n/signals - Get 3 free signals daily\n/ea - About robot\n/vip - Join VIP\n\nContact Admin: @YourUsername`))
+bot.command('signals', (ctx) => ctx.reply(`📈 FREE SIGNALS - Today\n\n1️⃣ EURUSD BUY @ 1.0850 TP:1.0880 SL:1.0820\n2️⃣ GBPUSD SELL @ 1.2720 TP:1.2650 SL:1.2750\n3️⃣ XAUUSD BUY @ 2035 TP:2045 SL:2028\n\nType /vip for more!`))
+bot.command('ea', (ctx) => ctx.reply(`🤖 Ai Forex EA V2.0\n✅ 85% Win Rate\n✅ Auto 24/5\n✅ MT4/MT5\n💰 $99 Lifetime\n\nType /vip to buy!`))
+bot.command('vip', (ctx) => ctx.reply(`👑 VIP ACCESS\n✅ 5-10 Daily Signals\n✅ EA + Set Files\n✅ Private Channel\n\nContact: @YourUsername`))
+bot.on('text', (ctx) => { if (!ctx.message.text.startsWith('/')) ctx.reply(`Type /help for menu`) })
+bot.launch().then(()=>console.log('Bot started'))
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))
